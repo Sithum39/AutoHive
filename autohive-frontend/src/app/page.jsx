@@ -1,3 +1,4 @@
+import Footer from "@/components/common/Footer";
 import Navbar from "@/components/common/Navbar";
 import HeroSection from "@/components/home/hero";
 
@@ -8,6 +9,7 @@ export default function Home() {
       <Navbar />
       <HeroSection />
         <h1 className="text-4xl font-bold text-center mt-10">Welcome to AutoHive</h1>
+      <Footer />
     </div>
   );
 }
