@@ -67,9 +67,9 @@ const Footer = () => {
 
       {/* --- MAIN FOOTER LINKS --- */}
       <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-8 text-center md:text-left">
           {/* Column 1: Brand & Contact */}
-          <div className="flex flex-col items-start pr-10">
+          <div className="flex flex-col items-center md:items-start text-center md:text-left pr-0 md:pr-10">
             <Link href="/" className="mb-6 inline-block">
               <Image
                 src="/AutoHive-for-dark.png"
@@ -84,8 +84,8 @@ const Footer = () => {
               accessories, and tuning upgrades. Unleash your ride's true
               potential today.
             </p>
-            <ul className="flex flex-col gap-3 text-sm text-slate-300">
-              <li className="flex items-start gap-3">
+            <ul className="flex flex-col gap-3 text-sm text-slate-300 items-center md:items-start">
+              <li className="flex items-start gap-3 justify-center md:justify-start">
                 <svg
                   className="w-5 h-5 text-brand-teal flex-shrink-0"
                   fill="none"
@@ -107,7 +107,7 @@ const Footer = () => {
                 </svg>
                 <span>123 Performance Way, Motor City, UK</span>
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-3 justify-center md:justify-start">
                 <svg
                   className="w-5 h-5 text-brand-teal flex-shrink-0"
                   fill="none"
@@ -128,7 +128,7 @@ const Footer = () => {
                   support@autohive.com
                 </a>
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-3 justify-center md:justify-start">
                 <svg
                   className="w-5 h-5 text-brand-teal flex-shrink-0"
                   fill="none"
@@ -153,11 +153,11 @@ const Footer = () => {
           </div>
 
           {/* Column 2: Quick Links */}
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <h4 className="text-white font-bold text-lg mb-6 uppercase tracking-wider">
               Quick Links
             </h4>
-            <ul className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-3 items-center md:items-start">
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <Link
@@ -173,11 +173,11 @@ const Footer = () => {
           </div>
 
           {/* Column 3: Categories */}
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <h4 className="text-white font-bold text-lg mb-6 uppercase tracking-wider">
               Top Categories
             </h4>
-            <ul className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-3 items-center md:items-start">
               {categories.map((cat) => (
                 <li key={cat.name}>
                   <Link
@@ -193,11 +193,11 @@ const Footer = () => {
           </div>
 
           {/* Column 4: Customer Support */}
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <h4 className="text-white font-bold text-lg mb-6 uppercase tracking-wider">
               Customer Support
             </h4>
-            <ul className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-3 items-center md:items-start">
               {customerSupport.map((support) => (
                 <li key={support.name}>
                   <Link

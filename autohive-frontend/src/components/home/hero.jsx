@@ -31,7 +31,7 @@ const heroSlides = [
     ctaLink: "/browse-parts?category=performance",
     offerTop: "SHOP",
     offerBottom: "& SAVE",
-    offerDesc: "Free UK Delivery On Orders Over £150. Shop now and save.",
+    offerDesc: "Free Delivery On Orders Over LKR 5000. Shop now and save.",
     offerLink: "/browse-parts",
   },
   {
@@ -253,7 +253,7 @@ const HeroSection = () => {
       ))}
 
       {/* --- MAIN HERO TEXT (Centered Vertically) --- */}
-      <div className="relative z-20 flex-1 flex flex-col justify-center items-start container mx-auto px-4 md:px-12 pl-4 md:pl-16 pt-10">
+      <div className="relative z-20 flex-1 flex flex-col justify-center items-center md:items-start container mx-auto px-4 md:px-12 md:pl-16 pt-10 text-center md:text-left">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-4 tracking-tight drop-shadow-lg max-w-4xl uppercase">
           <span className="text-brand-teal">
             {heroSlides[currentSlide].title.split(" ")[0]}
@@ -272,21 +272,21 @@ const HeroSection = () => {
       </div>
 
       {/* --- BOTTOM FLOATING DOCK (Categories & Offers) --- */}
-      <div className="relative z-30 w-full container mx-auto px-4 md:px-12 pb-8 flex flex-col lg:flex-row lg:items-end justify-between gap-10 lg:gap-8">
+      <div className="relative z-30 w-full container mx-auto px-4 md:px-12 pb-8 flex flex-col lg:flex-row lg:items-end justify-between gap-6 lg:gap-8">
         {/* Left Side: Circular Categories with Text underneath */}
-        <div className="flex items-center gap-3 md:gap-4 overflow-x-auto hide-scrollbar max-w-full lg:max-w-[55%] pb-2 lg:pb-0 pt-4">
+        <div className="grid grid-cols-4 gap-x-1 gap-y-2 lg:flex lg:items-center lg:gap-4 lg:overflow-x-auto lg:max-w-[55%] pb-2 lg:pb-0 pt-2">
           {categories.map((category, index) => (
             <Link
               key={index}
               href={`/browse-parts?category=${category.name.toLowerCase().replace(" ", "-")}`}
-              className="flex flex-col items-center flex-shrink-0 group cursor-pointer w-16 md:w-20"
+              className="flex flex-col items-center group cursor-pointer"
             >
-              <div className="w-14 h-14 md:w-16 md:h-16 rounded-full border border-white/30 text-brand-teal flex items-center justify-center mb-3 transition-all duration-300 group-hover:bg-brand-teal group-hover:border-brand-teal group-hover:text-brand-deep group-hover:-translate-y-1 backdrop-blur-sm bg-white/5 shadow-lg">
+              <div className="w-12 h-12 md:w-16 md:h-16 rounded-full border border-white/30 text-brand-teal flex items-center justify-center mb-1.5 transition-all duration-300 group-hover:bg-brand-teal group-hover:border-brand-teal group-hover:text-brand-deep group-hover:-translate-y-1 backdrop-blur-sm bg-white/5 shadow-lg">
                 <div className="transition-transform duration-300 group-hover:scale-110">
                   {category.icon}
                 </div>
               </div>
-              <span className="text-slate-200 text-xs md:text-sm font-medium text-center transition-colors group-hover:text-brand-teal leading-tight drop-shadow-md">
+              <span className="text-slate-200 text-[10px] md:text-xs font-medium text-center transition-colors group-hover:text-brand-teal leading-tight drop-shadow-md">
                 {category.name}
               </span>
             </Link>
@@ -294,9 +294,9 @@ const HeroSection = () => {
         </div>
 
         {/* Right Side: Animated Offer Block & Sync'd Progress Bars */}
-        <div className="flex flex-col items-start lg:items-end w-full lg:w-[40%] xl:w-auto">
+        <div className="flex flex-col items-center lg:items-end w-full lg:w-[40%] xl:w-auto">
           {/* Offer Content */}
-          <div className="flex items-center gap-4 md:gap-6 mb-4">
+          <div className="flex items-center justify-center lg:justify-end gap-4 md:gap-6 mb-4 w-full">
             {/* Offer Bold Text (Stacked) */}
             <div className="flex flex-col text-right text-brand-teal font-black text-3xl md:text-5xl leading-[0.9] tracking-tighter drop-shadow-md">
               <span>{heroSlides[currentSlide].offerTop}</span>
@@ -330,7 +330,7 @@ const HeroSection = () => {
           </div>
 
           {/* Line Progress Bars (Replaces dots, acts as carousel control) */}
-          <div className="flex gap-2 w-full max-w-sm lg:max-w-md ml-auto">
+          <div className="flex gap-2 w-full max-w-xs lg:max-w-md">
             {heroSlides.map((_, index) => (
               <button
                 key={index}
