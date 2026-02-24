@@ -15,6 +15,11 @@ const Navbar = () => {
     "Engine Parts",
     "Body Parts",
     "Accessories",
+    "Filters",
+    "Batteries",
+    "Tyres",
+    "Motor Oils",
+    "Services",
   ];
 
   const navLinks = [
@@ -36,7 +41,8 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className="w-full font-sans shadow-md relative z-50">
+    // CHANGED: "relative" to "sticky top-0" to make the whole header stick to the top
+    <header className="w-full font-sans shadow-md sticky top-0 z-50">
       {/* Top Section - Brand Deep */}
       <div className="bg-brand-deep w-full py-4 relative z-20">
         <div className="container mx-auto px-4 flex items-center justify-between gap-4 md:gap-8">
