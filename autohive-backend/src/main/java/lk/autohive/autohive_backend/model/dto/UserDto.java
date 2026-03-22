@@ -5,11 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.modulith.NamedInterface;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@NamedInterface
 public class UserDto {
     private String id;
     private String firstName;
