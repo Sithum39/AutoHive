@@ -1,0 +1,106 @@
+package lk.autohive.autohive_backend.service.Impl;
+
+import lk.autohive.autohive_backend.model.dto.AuthResponse;
+import lk.autohive.autohive_backend.model.dto.LoginRequest;
+import lk.autohive.autohive_backend.model.dto.RegisterRequest;
+import lk.autohive.autohive_backend.model.dto.UserDto;
+import lk.autohive.autohive_backend.model.entity.User;
+import lk.autohive.autohive_backend.repository.UserRepository;
+import lk.autohive.autohive_backend.service.AuthService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+
+@Service
+@RequiredArgsConstructor
+public class AuthServiceImpl implements AuthService {
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtServiceImpl jwtService;
+    private final AuthenticationManager authenticationManager;
+
+    @Override
+    public AuthResponse register(RegisterRequest request) {
+        var user = User.builder()
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .contactNo(request.getContactNo())
+                .address(request.getAddress())
+                .role(request.getRole())
+                .createdDate(LocalDate.now())
+                .build();
+
+        User savedUser = userRepository.save(user);
+
+        // FIX: Add role to claims so Gateway can read it
+        Map<String, Object> extraClaims = new HashMap<>();
+        if (savedUser.getRole() != null) {
+            extraClaims.put("role", savedUser.getRole().name());
+        }
+
+        var jwtToken = jwtService.generateToken(extraClaims, user);
+
+        var userDto = UserDto.builder()
+                .id(savedUser.getId())
+                .firstName(savedUser.getFirstName())
+                .lastName(savedUser.getLastName())
+                .email(savedUser.getEmail())
+                .contactNo(savedUser.getContactNo())
+                .address(savedUser.getAddress())
+                .role(savedUser.getRole())
+                .build();
+
+        return AuthResponse.builder()
+                .token(jwtToken)
+                .user(userDto)
+                .build();
+    }
+
+    @Override
+    public AuthResponse login(LoginRequest request) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(),
+                        request.getPassword()
+                )
+        );
+
+        var user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + request.getEmail()));
+
+        // FIX: Add role to claims so Gateway can read it
+        Map<String, Object> extraClaims = new HashMap<>();
+        if (user.getRole() != null) {
+            extraClaims.put("role", user.getRole().name());
+        }
+
+        var jwtToken = jwtService.generateToken(extraClaims, user);
+
+        var userDto = UserDto.builder()
+                .id(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .contactNo(user.getContactNo())
+                .address(user.getAddress())
+                .role(user.getRole())
+                .build();
+
+        System.out.println("Access the login");
+
+        return AuthResponse.builder()
+                .token(jwtToken)
+                .user(userDto)
+                .build();
+    }
+}
